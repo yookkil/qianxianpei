@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千鲜配食品有限公司 — 汉堡 · 西式快餐 · 原切牛排</title>
+<style>
+  :root{
+    --brown:#3a2418; --brown2:#5a3826; --red:#d9482b; --amber:#f4a261;
+    --gold:#e9c46a; --bg:#fdf8f1; --card:#ffffff; --text:#4d4038; --muted:#8b7b6f;
+    --line:#f0e4d6; --radius:16px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.7}
+  img{max-width:100%;display:block}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* ---------- nav ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(58,36,24,.94);backdrop-filter:blur(8px)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:20px;letter-spacing:1px}
+  .logo .mark{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:grid;place-items:center;font-size:17px;color:#fff}
+  .logo small{font-weight:400;font-size:12px;color:#cbb4a2;letter-spacing:2px}
+  nav ul{display:flex;gap:28px;list-style:none}
+  nav a{color:#e9dccd;font-size:15px;transition:.2s}
+  nav a:hover{color:var(--gold)}
+  .nav-cta{background:var(--red);color:#fff;padding:9px 22px;border-radius:999px;font-size:14px;font-weight:600}
+  .nav-cta:hover{background:#c03a1f}
+  .burger{display:none;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+
+  /* ---------- hero ---------- */
+  .hero{background:radial-gradient(900px 500px at 80% 0%,#f4a26133,transparent),linear-gradient(155deg,var(--brown) 0%,var(--brown2) 55%,#7a4a2e 100%);color:#fff;padding:158px 0 110px;position:relative;overflow:hidden}
+  .hero::before{content:"🍔";position:absolute;right:8%;top:18%;font-size:150px;opacity:.10;transform:rotate(-12deg)}
+  .hero::after{content:"🥩";position:absolute;left:6%;bottom:-4%;font-size:130px;opacity:.08;transform:rotate(10deg)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;position:relative;z-index:1}
+  .tag{display:inline-block;border:1px solid #ffffff44;border-radius:999px;padding:5px 16px;font-size:13px;color:var(--gold);letter-spacing:3px;margin-bottom:22px}
+  .hero h1{font-size:48px;line-height:1.25;font-weight:800;margin-bottom:18px}
+  .hero h1 em{font-style:normal;color:var(--amber)}
+  .hero p{color:#e6d8c8;font-size:17px;max-width:520px;margin-bottom:34px}
+  .btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{padding:13px 30px;border-radius:999px;font-size:15px;font-weight:600;transition:.2s;display:inline-block}
+  .btn-main{background:var(--red);color:#fff}
+  .btn-main:hover{transform:translateY(-2px);box-shadow:0 10px 24px #d9482b55}
+  .btn-ghost{border:1px solid #ffffff55;color:#fff}
+  .btn-ghost:hover{background:#ffffff14}
+  .hero-card{background:#ffffff0f;border:1px solid #ffffff26;border-radius:20px;padding:30px;backdrop-filter:blur(4px)}
+  .hero-card h3{font-size:15px;color:#e9dccd;font-weight:400;margin-bottom:16px;letter-spacing:2px}
+  .menu-hit{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px dashed #ffffff2b;font-size:14.5px}
+  .menu-hit:last-child{border-bottom:0}
+  .menu-hit b{color:var(--gold);font-weight:700}
+  .menu-hit span{color:#cdbba8;font-size:12.5px;margin-left:8px}
+
+  /* ---------- stats ---------- */
+  .stats{background:#fff;border-bottom:1px solid var(--line)}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);padding-top:38px;padding-bottom:38px;gap:20px}
+  .stat{text-align:center}
+  .stat .num{font-size:38px;font-weight:800;color:var(--brown)}
+  .stat .num i{font-style:normal;color:var(--red);font-size:24px}
+  .stat p{color:var(--muted);font-size:14px;margin-top:2px}
+
+  /* ---------- sections ---------- */
+  section{padding:88px 0}
+  .sec-head{text-align:center;max-width:660px;margin:0 auto 54px}
+  .sec-head .kicker{color:var(--red);font-size:14px;letter-spacing:4px;font-weight:700}
+  .sec-head h2{font-size:34px;color:var(--brown);margin:8px 0 12px}
+  .sec-head p{color:var(--muted)}
+
+  /* ---------- menu ---------- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:34px 28px;transition:.25s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px #3a241814;border-color:var(--amber)}
+  .icon{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:27px;margin-bottom:20px;background:#fdeee2}
+  .card:nth-child(2) .icon,.card:nth-child(5) .icon{background:#fbe6df}
+  .card:nth-child(3) .icon,.card:nth-child(6) .icon{background:#faf0d8}
+  .card h3{font-size:19px;color:var(--brown);margin-bottom:10px}
+  .card p{font-size:14.5px;color:var(--muted)}
+  .price{display:inline-block;margin-top:14px;background:#fdeee2;color:var(--red);font-weight:700;font-size:14px;border-radius:999px;padding:4px 14px}
+
+  /* ---------- why us ---------- */
+  .why{background:#fff}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .why h2{font-size:32px;color:var(--brown);margin-bottom:18px}
+  .why .kicker{color:var(--amber);font-size:14px;letter-spacing:4px;font-weight:700;display:block;margin-bottom:8px}
+  .why p{margin-bottom:14px}
+  .checks{list-style:none;margin-top:20px}
+  .checks li{padding:8px 0 8px 34px;position:relative;font-weight:600;color:var(--brown)}
+  .checks li::before{content:"✓";position:absolute;left:0;top:6px;width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;font-size:14px;display:grid;place-items:center}
+  .story{background:linear-gradient(160deg,var(--brown),var(--brown2));border-radius:20px;padding:40px 36px;color:#fff}
+  .story h3{color:var(--gold);margin-bottom:22px;font-size:18px;letter-spacing:3px}
+  .tl{display:flex;gap:18px;padding:13px 0;border-bottom:1px dashed #ffffff2b}
+  .tl:last-child{border:0}
+  .tl b{color:var(--amber);min-width:58px}
+  .tl span{color:#e6d8c8;font-size:14.5px}
+
+  /* ---------- products ---------- */
+  .prod{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+  .pcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+  .pband{height:120px;display:flex;align-items:center;justify-content:center;gap:14px;color:#fff;font-size:25px;font-weight:800;letter-spacing:4px}
+  .pcard:nth-child(1) .pband{background:linear-gradient(120deg,var(--red),#a93419)}
+  .pcard:nth-child(2) .pband{background:linear-gradient(120deg,var(--brown2),#8a5a38)}
+  .pcard:nth-child(3) .pband{background:linear-gradient(120deg,var(--amber),#d97e2e)}
+  .pcard:nth-child(4) .pband{background:linear-gradient(120deg,#e9c46a,#c99b2f)}
+  .pbody{padding:26px 28px;flex:1}
+  .pbody h3{color:var(--brown);font-size:19px;margin-bottom:8px}
+  .pbody p{font-size:14.5px;color:var(--muted)}
+  .ptags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .ptags span{font-size:12px;background:#f7ece0;color:#7a5f49;border-radius:999px;padding:4px 12px}
+
+  /* ---------- franchise ---------- */
+  .fran{background:linear-gradient(150deg,#fdeee2,#faf0d8)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
+  .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 24px;position:relative}
+  .step::before{counter-increment:step;content:counter(step,decimal-leading-zero);position:absolute;top:18px;right:20px;font-size:30px;font-weight:800;color:#f2ddc7}
+  .step h3{font-size:17px;color:var(--brown);margin-bottom:8px}
+  .step p{font-size:13.5px;color:var(--muted)}
+  .step .sicon{font-size:30px;margin-bottom:14px}
+
+  /* ---------- news ---------- */
+  .news{background:#fff}
+  .nlist{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .ncard{border:1px solid var(--line);border-radius:var(--radius);padding:28px;background:var(--bg);transition:.25s}
+  .ncard:hover{border-color:var(--red)}
+  .ndate{font-size:13px;color:var(--red);font-weight:700;letter-spacing:1px}
+  .ncard h3{font-size:17px;color:var(--brown);margin:10px 0 8px}
+  .ncard p{font-size:14px;color:var(--muted)}
+
+  /* ---------- contact ---------- */
+  .contact{background:linear-gradient(160deg,var(--brown),var(--brown2));color:#fff}
+  .c-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px}
+  .contact h2{font-size:32px;margin-bottom:14px}
+  .contact .lead{color:#e6d8c8;margin-bottom:28px}
+  .cinfo{display:flex;flex-direction:column;gap:18px}
+  .crow{display:flex;gap:14px;align-items:flex-start}
+  .crow .dot{width:40px;height:40px;border-radius:12px;background:#ffffff17;display:grid;place-items:center;font-size:18px;flex-shrink:0}
+  .crow b{display:block;font-size:14px;color:var(--gold)}
+  .crow span{font-size:14.5px;color:#f0e6da}
+  form{background:#ffffff0e;border:1px solid #ffffff22;border-radius:18px;padding:32px}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  label{font-size:13px;color:#e6d8c8;display:block;margin:0 0 6px 2px}
+  input,textarea,select{width:100%;background:#ffffff12;border:1px solid #ffffff2b;border-radius:10px;color:#fff;padding:12px 14px;font-size:14.5px;font-family:inherit;margin-bottom:16px;outline:none;transition:.2s}
+  input::placeholder,textarea::placeholder{color:#b9a48e}
+  select{appearance:none}
+  select option{color:var(--brown)}
+  input:focus,textarea:focus,select:focus{border-color:var(--amber);background:#ffffff1c}
+  form .btn-main{border:0;cursor:pointer;width:100%}
+
+  /* ---------- footer ---------- */
+  footer{background:#241207;color:#b9a48e;padding:54px 0 26px;font-size:14px}
+  .f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:38px}
+  footer h4{color:#fff;font-size:15px;margin-bottom:14px}
+  footer li{list-style:none;padding:4px 0}
+  footer a:hover{color:#fff}
+  .f-bottom{border-top:1px solid #ffffff14;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .hero h1{font-size:34px}
+    .hero-grid,.why-grid,.c-grid{grid-template-columns:1fr}
+    .cards,.nlist{grid-template-columns:1fr 1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    .stats .wrap{grid-template-columns:1fr 1fr}
+    .prod{grid-template-columns:1fr}
+    nav ul{display:none;position:absolute;top:66px;left:0;right:0;background:var(--brown);flex-direction:column;padding:18px 24px;gap:14px}
+    nav ul.open{display:flex}
+    .burger{display:block}
+    .nav-cta{display:none}
+  }
+  @media (max-width:560px){
+    .cards,.nlist,.steps,.frow{grid-template-columns:1fr}
+    .hero{padding:126px 0 80px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top"><span class="mark">鲜</span>千鲜配<small>QIANXIAN PEI</small></a>
+    <nav>
+      <ul id="menu">
+        <li><a href="#menu1">招牌菜单</a></li>
+        <li><a href="#why">为什么选我们</a></li>
+        <li><a href="#series">产品系列</a></li>
+        <li><a href="#fran">门店与加盟</a></li>
+        <li><a href="#news">品牌动态</a></li>
+        <li><a href="#contact">联系我们</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="#fran">立即加盟</a>
+    <button class="burger" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">BURGER · STEAK · WESTERN FAST FOOD</span>
+      <h1>千种新鲜直配<br><em>现做现烤</em>才够味</h1>
+      <p>千鲜配食品有限公司专注汉堡、西式快餐与原切牛排，从牧场到餐桌全程冷链直配，用"鲜"重新定义西式快餐。</p>
+      <div class="btns">
+        <a class="btn btn-main" href="#menu1">查看招牌菜单</a>
+        <a class="btn btn-ghost" href="#fran">加盟咨询</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>本 周 热 销 榜</h3>
+      <div class="kv"><span>🍔 千鲜爆汁大汉堡</span><b>¥ 22</b></div>
+      <div class="kv"><span>🥩 铁板原切西冷牛排</span><b>¥ 39</b></div>
+      <div class="kv"><span>🍗 秘制脆皮炸鸡桶</span><b>¥ 35</b></div>
+      <div class="kv"><span>🍟 芝士肉酱薯条</span><b>¥ 15</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="num">260<i>+</i></div><p>全国门店</p></div>
+    <div class="stat"><div class="num">48<i>城</i></div><p>覆盖城市</p></div>
+    <div class="stat"><div class="num">1800<i>万</i></div><p>年服务顾客</p></div>
+    <div class="stat"><div class="num">98<i>%</i></div><p>顾客好评率</p></div>
+  </div>
+</div>
+
+<section id="menu1">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">SIGNATURE MENU</span>
+      <h2>招牌菜单</h2>
+      <p>每一款都坚持现点现做，面包当日烘烤，肉饼冷链直配</p>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="icon">🍔</div><h3>千鲜爆汁大汉堡</h3><p>整块原切牛肉饼 120g，高温铁板锁汁，配当日现烤黄油面包与秘制千鲜酱。</p><span class="price">¥22 · 销量王</span></div>
+      <div class="card"><div class="icon">🥩</div><h3>铁板原切牛排系列</h3><p>西冷 / 眼肉 / 菲力三种部位，-38℃ 锁鲜直配，佐黑椒汁或海盐黑椒，附赠时蔬。</p><span class="price">¥39 起</span></div>
+      <div class="card"><div class="icon">🍗</div><h3>秘制脆皮炸鸡</h3><p>24 小时低温腌制，现炸 11 分钟出锅，外皮酥脆内里爆汁，桶装分享更尽兴。</p><span class="price">¥35 / 桶</span></div>
+      <div class="card"><div class="icon">🌭</div><h3>美式热狗 & 卷堡</h3><p>整条安格斯牛肉肠，配酸黄瓜与德式芥末；墨西哥鸡肉卷堡香辣过瘾。</p><span class="price">¥12 起</span></div>
+      <div class="card"><div class="icon">🍟</div><h3>小食拼盘</h3><p>芝士肉酱薯条、洋葱圈、上校鸡块、烤翅，观影追剧与聚餐的高光配角。</p><span class="price">¥15 起</span></div>
+      <div class="card"><div class="icon">🥤</div><h3>饮品 & 甜品</h3><p>现磨咖啡、鲜果气泡水、暴风雪冰淇淋，解腻收尾一套带走。</p><span class="price">¥8 起</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap why-grid">
+    <div>
+      <span class="kicker">WHY QIANXIANPEI</span>
+      <h2>"千鲜直配"不是一句口号</h2>
+      <p>千鲜配食品有限公司成立于 2016 年，自建冷链仓储与中央厨房，肉饼、牛排、面包从工厂到门店全程 0–4℃，当日直配。</p>
+      <p>我们坚持现点现做：不卖保温柜里放了 20 分钟的汉堡，不做合成肉牛排——这是千鲜配和快餐巨头最大的区别。</p>
+      <ul class="checks">
+        <li>ISO 22000 / HACCP 食品安全体系认证</li>
+        <li>原切肉品可溯源，拒绝拼接合成肉</li>
+        <li>中央厨房 + 区域冷链，24 小时到店</li>
+        <li>每季度上新，研发团队来自头部连锁品牌</li>
+      </ul>
+    </div>
+    <div class="story">
+      <h3>品 牌 历 程</h3>
+      <div class="tl"><b>2016</b><span>首家千鲜配汉堡店开业，主打"现烤面包+原切肉饼"</span></div>
+      <div class="tl"><b>2018</b><span>中央厨房落成，自建 0–4℃ 冷链配送体系</span></div>
+      <div class="tl"><b>2020</b><span>铁板原切牛排系列上市，进军品质快餐赛道</span></div>
+      <div class="tl"><b>2022</b><span>门店突破 100 家，获省级"食品安全示范企业"</span></div>
+      <div class="tl"><b>2024</b><span>数字化点单 + 会员体系上线，复购率提升 35%</span></div>
+      <div class="tl"><b>2026</b><span>全国门店 260+，启动"千鲜合伙人"加盟计划</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="series">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">PRODUCT LINES</span>
+      <h2>产品系列</h2>
+      <p>堂食快餐 + 零售到家，一套供应链两种吃法</p>
+    </div>
+    <div class="prod">
+      <div class="pcard"><div class="pband">🍔 汉堡快餐系列</div>
+        <div class="pbody"><h3>门店现做汉堡</h3><p>牛肉堡、鸡肉堡、虾堡三大主线 18 个 SKU，搭配套餐小食饮品，出餐 90 秒。</p>
+        <div class="ptags"><span>现点现做</span><span>当日面包</span><span>90 秒出餐</span></div></div></div>
+      <div class="pcard"><div class="pband">🥩 原切牛排系列</div>
+        <div class="pbody"><h3>整切 / 原切家庭牛排</h3><p>西冷、眼肉、菲力、上脑四大部位，-38℃ 急锁鲜，盒装到家 10 分钟煎出餐厅味。</p>
+        <div class="ptags"><span>0 添加原切</span><span>全程冷链</span><span>附酱汁教程</span></div></div></div>
+      <div class="pcard"><div class="pband">🍗 炸物小食系列</div>
+        <div class="pbody"><h3>炸鸡 / 薯条 / 烤翅</h3><p>半成品与即食两条线，家庭空气炸锅版小食装，电商与直播渠道热销。</p>
+        <div class="ptags"><span>空气炸锅友好</span><span>家庭装</span><span>电商爆款</span></div></div></div>
+      <div class="pcard"><div class="pband">🎉 团餐定制系列</div>
+        <div class="pbody"><h3>企业 / 校园 / 活动团餐</h3><p>百人以上汉堡套餐批量供应，支持 LOGO 定制包装与营养搭配方案。</p>
+        <div class="ptags"><span>批量直供</span><span>定制包装</span><span>营养配餐</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="fran" id="fran">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">FRANCHISE</span>
+      <h2>千鲜合伙人 · 加盟四步走</h2>
+      <p>整店输出模式：选址、装修、培训、供应链一站式扶持</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="sicon">📝</div><h3>项目咨询</h3><p>提交意向信息，招商顾问一对一解答投资模型与回本周期。</p></div>
+      <div class="step"><div class="sicon">🔍</div><h3>选址评估</h3><p>大数据商圈分析 + 实地测评，通过率达 3:1 严格把关。</p></div>
+      <div class="step"><div class="sicon">🎓</div><h3>培训筹建</h3><p>总部 15 天封闭式培训，装修、设备、证照全程带教。</p></div>
+      <div class="step"><div class="sicon">🚀</div><h3>开业运营</h3><p>开业督导驻店 7 天，季度新品与营销方案持续更新。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="news" id="news">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">NEWS</span>
+      <h2>品牌动态</h2>
+      <p>了解千鲜配的最新消息</p>
+    </div>
+    <div class="nlist">
+      <div class="ncard"><div class="ndate">2026 · 09</div><h3>秋季新品发布会圆满举行</h3><p>松露菌菇牛肉堡、黑椒洋葱卷堡两款秋季新品全国同步上市，首日销量破 12 万份。</p></div>
+      <div class="ncard"><div class="ndate">2026 · 06</div><h3>华东冷链二期仓正式投用</h3><p>新增 2 万吨冷库容量，江浙沪门店实现"一日两配"，鲜度再提速。</p></div>
+      <div class="ncard"><div class="ndate">2026 · 03</div><h3>"千鲜合伙人"计划招募破千</h3><p>加盟意向登记突破 1000 组，首批 38 家新店已陆续开业。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap c-grid">
+    <div>
+      <h2>联系我们</h2>
+      <p class="lead">加盟咨询、团餐合作、顾客建议，都欢迎随时联系。工作日 4 小时内回复。</p>
+      <div class="cinfo">
+        <div class="crow"><div class="dot">📍</div><div><b>公司地址</b><span>某某市经济开发区食品工业园千鲜配大厦</span></div></div>
+        <div class="crow"><div class="dot">📞</div><div><b>加盟热线</b><span>400-XXX-6688 / 0XXX-8888 6666</span></div></div>
+        <div class="crow"><div class="dot">✉️</div><div><b>商务合作</b><span>bd@qianxianpei.example</span></div></div>
+        <div class="crow"><div class="dot">🕘</div><div><b>营业时间</b><span>门店 10:00 – 22:00 · 总部 9:00 – 18:00</span></div></div>
+      </div>
+    </div>
+    <form onsubmit="event.preventDefault();alert('演示页面：表单未接入后台，可替换为真实接口');">
+      <div class="frow">
+        <div><label>您的称呼</label><input placeholder="先生 / 女士" required></div>
+        <div><label>联系电话</label><input placeholder="手机号" required></div>
+      </div>
+      <div class="frow">
+        <div><label>意向城市</label><input placeholder="如：合肥"></div>
+        <div><label>咨询类型</label>
+          <select><option>加盟开店</option><option>团餐合作</option><option>供应商合作</option><option>其他咨询</option></select></div>
+      </div>
+      <label>留言内容</label>
+      <textarea rows="4" placeholder="简单描述您的需求，如预算、铺位情况…"></textarea>
+      <button class="btn btn-main" type="submit">提交咨询</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a class="logo" href="#top" style="margin-bottom:14px"><span class="mark">鲜</span>千鲜配</a>
+        <p style="max-width:300px">千鲜直配，现做现烤。专注汉堡、西式快餐与原切牛排的连锁餐饮企业。</p>
+      </div>
+      <div><h4>菜单</h4><ul><li><a href="#menu1">招牌汉堡</a></li><li><a href="#menu1">原切牛排</a></li><li><a href="#menu1">炸物小食</a></li><li><a href="#menu1">饮品甜品</a></li></ul></div>
+      <div><h4>公司</h4><ul><li><a href="#why">品牌故事</a></li><li><a href="#news">品牌动态</a></li><li><a href="#fran">加盟合作</a></li><li><a href="#contact">联系我们</a></li></ul></div>
+      <div><h4>合作</h4><ul><li><a href="#contact">团餐定制</a></li><li><a href="#contact">供应商入驻</a></li><li><a href="#contact">电商分销</a></li></ul></div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 千鲜配食品有限公司 · 本页面为演示模板，联系方式等占位信息请替换</span>
+      <span>食品经营许可证 XXXXXXXX · 粤ICP备XXXXXXXX号</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
